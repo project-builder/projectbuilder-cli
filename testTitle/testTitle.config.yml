@@ -1,0 +1,20 @@
+---
+  databases: 
+    blofDB: 
+      type: "mysql"
+      setup: 
+        sqlPort: "3306"
+        sqlHost: "localhost"
+        sqlUser: "root"
+        sqlPass: ""
+        sqlDB: "blofDB"
+  filesystems: {}
+  models: 
+    blogMODE: 
+      files: false
+      db: "blofDB"
+      data: 
+        ttt: 
+          dataType: "string"
+          required: "yes"
+          encrypted: "yes"

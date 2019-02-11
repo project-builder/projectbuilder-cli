@@ -24,6 +24,8 @@ class CLI {
   Menu: any;
 ChoiceRouter: any;
 Creator: any;
+databaseTypes: any;
+filesystemTypes: any;
 
   constructor() {
     clear();
@@ -34,7 +36,10 @@ Creator: any;
     this.clear = clear;
     this.inquirer = inquirer;
     this.curI = 0;
-    this.focus = 'menu'
+    this.focus = 'menu';
+    this.databaseTypes = new Set()
+    this.filesystemTypes = new Set()
+
     this.globalConfig = {
       databases: {},
       filesystems: {},

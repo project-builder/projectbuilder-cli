@@ -6,8 +6,6 @@ let menuChoice = await this.showMenu(this.Menu.main());
     case'createProject': this.createFile();
     // case'createProject': this.showConfig();
 
-
-    // case'createProject': this.createFile('sampleProject', this.globalConfig);
       break;
     case `showConfig`: this.showConfig()
       break;
@@ -59,6 +57,11 @@ let menuChoice = await this.showMenu(this.Menu.main());
       else{
         let result = await this.promptNew(decision)
         let {name, type} = result;
+
+        // console.log('ghg', type, menuChoice);
+        this[`${menuChoice}Types`].add(type)
+
+
         let config = this.Creator[menuChoice][type](name)
         let setup = await this.promptNew(config)
         this.globalConfig[`${menuChoice}s`][name] = {type, setup}
