@@ -1,23 +1,21 @@
-// import * as shell from 'shelljs';
+import * as shell from 'shelljs';
 
-// import * as fs from 'fs-extra';
+import * as fs from 'fs-extra';
+
+import * as YAML from 'json2yaml'
 
 // const createFile = async (projectTitle, content) => {
-const createFile = async () => {
+const createFile = async function(){
+
+let projectTitle = 'testTitle';
 
 
-console.log('runnin Create')
-console.log('---------------------------------')
-console.log(this.globalConfig)
-console.log('---------------------------------')
-
-
-  // try {
-  //    let rootFile = await fs.ensureDir(`${process.cwd()}/${projectTitle}`);
-  //    let newFile = await fs.outputFile(`${rootFile}/${projectTitle}.config.json`, JSON.stringify(this.globalConfig));
-  // } catch (err) {
-  //   console.error(err)
-  // }
+  try {
+     let rootFile = await fs.ensureDir(`${process.cwd()}/${projectTitle}`);
+     let yamlFile = await fs.outputFile(`${rootFile}/${projectTitle}.config.yml`, YAML.stringify(this.globalConfig));
+  } catch (err) {
+    console.error(err)
+  }
 
 };
 
