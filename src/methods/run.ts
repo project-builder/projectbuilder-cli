@@ -1,75 +1,89 @@
+import columnCreator from '../columnCreator';
+import databaseCreator from '../databaseCreator'
+import filesystemCreator from '../filesystemCreator'
+import modelCreator from '../modelCreator'
+
 const run = async function(){
+
 let menuChoice = await this.showMenu(this.Menu.main());
 // this.clear()
 
   switch (menuChoice) {
     case'createProject': this.createFile();
-    // case'createProject': this.showConfig();
-
-      break;
+    break;
     case `showConfig`: this.showConfig()
-      break;
+    break;
     case 'model': {
-        this.clear()
-        let dbList = Object.keys(this.globalConfig.databases);
-        let fsList = Object.keys(this.globalConfig.filesystems)
-        let decision = this.ChoiceRouter[await this.showMenu(this.Menu.sub(menuChoice))][menuChoice](dbList, fsList)
+            let decision = await this.showMenu(this.Menu.sub(menuChoice))
 
-        if(decision === 'main'){
-          this.run();
-        }
-        else{
-          let result = await this.promptNew(decision.filter(arr => arr))
-          let {name, db, fs} = result;
+            if(decision === 'main'){
+              this.run()
+            }
 
-        if(!db) db = false
-        if(!fs) fs = false
+            if(decision === 'new'){
+              let dbList = Object.keys(this.globalConfig.databases);
+              let fsList = Object.keys(this.globalConfig.filesystems)
+              let {name, db, fs} = await this.promptNew(modelCreator.setup(dbList, fsList))
 
-      let cont = true;
-      let data ={};
+              let cont = true;
+              let data ={};
 
-      while(cont){
-        let ans = this.ChoiceRouter[await this.showMenu(this.Menu.sub('column'))]['column']()
-        if (ans === 'main'){
-          cont = false
-        }
-        else{
-          let result = await this.promptNew(ans)
-          let {name, ...rest} = result;
-          data[name] = rest;
-        }
-      }
-            this.globalConfig[`${menuChoice}s`][name] = {files: fs, db, data }
+              while(cont){
+              let ans = await this.showMenu(this.Menu.sub('column'))
+                if (ans === 'main'){
+                  cont = false
+                }
+              if (ans === 'new'){
+                  let result = await this.promptNew(columnCreator.setup())
+                  let {name, ...rest} = result;
+                  data[name] = rest;
+                }
+              }
 
-            this.run()
-          }
+              this.globalConfig[`${menuChoice}s`][name] = {files: fs, db, data }
+
+              this.run()
+            }
 
         break;
     }
-    case 'database':
-    case 'filesystem':
-      this.clear()
-      let decision = this.ChoiceRouter[await this.showMenu(this.Menu.sub(menuChoice))][menuChoice](menuChoice)
+    case 'database':{
+      let decision = await this.showMenu(this.Menu.sub(menuChoice))
 
       if(decision === 'main'){
         this.run()
       }
-      else{
-        let result = await this.promptNew(decision)
-        let {name, type} = result;
 
-        // console.log('ghg', type, menuChoice);
+      if(decision === 'new'){
+        let {name, type} = await this.promptNew(databaseCreator.nameAndType())
         this[`${menuChoice}Types`].add(type)
-
-
-        let config = this.Creator[menuChoice][type](name)
-        let setup = await this.promptNew(config)
+        let setup = await this.promptNew(databaseCreator[type](name))
         this.globalConfig[`${menuChoice}s`][name] = {type, setup}
         this.run()
       }
-
-
       break;
+    }
+
+    case 'filesystem':{
+      let decision = await this.showMenu(this.Menu.sub(menuChoice))
+
+      if(decision === 'main'){
+        this.run()
+      }
+
+      if(decision === 'new'){
+        let {name, type} = await this.promptNew(filesystemCreator.nameAndType())
+        this[`${menuChoice}Types`].add(type)
+        let setup = await this.promptNew(filesystemCreator[type](name))
+        this.globalConfig[`${menuChoice}s`][name] = {type, setup}
+        this.run()
+      }
+      break;
+    }
+
+
+
+      // break;
     default: break;
 
   }

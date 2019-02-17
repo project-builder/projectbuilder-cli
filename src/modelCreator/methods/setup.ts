@@ -1,30 +1,29 @@
-const modelSetup = function(dbList, fsList){
-    const questions = [
+const setup = function(dbList, fsList){
+    return [
       {
         name: "name",
         type: "input",
         message: "What is the name of this model?"
       },
 
-      dbList.length > 0 &&
       {
         name: `db`,
         message: `What database will this model use?`,
         type: "list",
-        choices: dbList,
+        choices: [...dbList, 'none'],
+        filter: (answer) => answer === 'none' ? false : answer
+
       },
 
-      fsList.length > 0 &&
       {
         name: `fs`,
         message: `What fileSystem will this model use?`,
         type: "list",
-        choices: fsList,
+        choices: [...fsList, 'none'],
+        filter: (answer) => answer === 'none' ? false : answer
+
       }
     ]
-
-    return questions
-
 }
 
-export default modelSetup
+export default setup

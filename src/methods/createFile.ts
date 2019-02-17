@@ -4,44 +4,84 @@ import * as fs from 'fs-extra';
 
 import * as YAML from 'json2yaml'
 
+import * as json from 'json'
+
 const createFile = async function(){
 
-let projectTitle = 'testTitle';
+let envFile =``
+
+    for (let key in this.globalConfig.databases) {
+        let name = key;
+        let password = this.globalConfig.databases[key].setup.password;
+        console.log(`${name}=${password}`)
+        let kv =`${name}=${password}`
+
+        envFile += kv;
+        envFile += '\n'
+    }
 
 
-// for (let key in this.databaseTypes) {
-//     console.log(`Need to install ORM for ${key}`)
-// }
-// for (let key in this.filesystemTypes) {
-//     console.log(`Need to install FSORM for ${key}`)
-// }
+
+
+
   try {
-
-  console.log('humpuy')
-
-    // for (let key of this.databaseTypes) {
-    //     console.log(`Need to install ORM for ${key}`)
-    // }
-    // for (let key in this.filesystemTypes) {
-    //     console.log(`Need to install FSORM for ${key}`)
-    // }
-
-
-
-     let rootFile = await fs.ensureDir(`${process.cwd()}/${projectTitle}`);
-     let yamlFile = await fs.outputFile(`${rootFile}/${projectTitle}.config.yml`, YAML.stringify(this.globalConfig));
+    let indexFile =`
+const YAML = require('yamljs');
+const {Manager} = require('@projectbuilder/projectbuilder-core');
+console.log('coming along')
+const project = YAML.load('./prjbconfig.yml')
+const myManager = new Manager(project);
+myManager.initialize(7500);
+`
 
 
 
-    shell.cd(projectTitle);
-    shell.exec('npm init -y')
 
-        for (let key of this.databaseTypes) {
-            console.log(`Need to install ORM for ${key}`)
-            shell.exec(`npm i projectbuilder-orm-${key}`)
-        }
+let gitIgnoreFile =`
+node_modules/
+.env
+`
 
 
+let pkgJSON = {
+  "name": this.projectTitle,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "repository" : "",
+  "license": "ISC"
+}
+
+
+
+
+
+
+     let rootFile =await fs.ensureDir(`${process.cwd()}/${this.projectTitle}`);
+       await fs.outputFile(`${rootFile}/prjbconfig.yml`, YAML.stringify(this.globalConfig));
+      await fs.outputFile(`${rootFile}/index.js`, indexFile);
+    await fs.outputFile(`${rootFile}/.env`, envFile);
+    await fs.outputFile(`${rootFile}/.gitignore`, gitIgnoreFile);
+
+    await fs.outputFile(`${rootFile}/package.json`, JSON.stringify(pkgJSON));
+
+
+
+      await shell.cd(this.projectTitle);
+      // await shell.exec('npm init -y')
+
+    await shell.exec(`npm i @projectbuilder/projectbuilder-core yamljs`)
+
+    for (let key of this.databaseTypes) {
+        console.log(`Need to install ORM for ${key}`)
+        await shell.exec(`npm i projectbuilder-orm-${key}`)
+    }
 
 
   } catch (err) {
