@@ -4,7 +4,6 @@ import * as figlet from 'figlet';
 const init = (title) => {
   console.log(
     chalk.green(
-      // figlet.textSync("API-BUILDER", {
       figlet.textSync(title, {
         font: "slant",
         horizontalLayout: "default",

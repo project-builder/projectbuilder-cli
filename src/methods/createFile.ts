@@ -63,7 +63,7 @@ let pkgJSON = {
 
 
 
-     let rootFile =await fs.ensureDir(`${process.cwd()}/${this.projectTitle}`);
+     let rootFile = await fs.ensureDir(`${process.cwd()}/${this.projectTitle}`);
        await fs.outputFile(`${rootFile}/prjbconfig.yml`, YAML.stringify(this.globalConfig));
       await fs.outputFile(`${rootFile}/index.js`, indexFile);
     await fs.outputFile(`${rootFile}/.env`, envFile);
@@ -80,7 +80,7 @@ let pkgJSON = {
 
     for (let key of this.databaseTypes) {
         console.log(`Need to install ORM for ${key}`)
-        await shell.exec(`npm i projectbuilder-orm-${key}`)
+        await shell.exec(`npm i @projectbuilder/projectbuilder-orm-${key}`)
     }
 
 

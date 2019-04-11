@@ -1,27 +1,32 @@
   const mongo = function(dbTitle){
       return [
         {
-          name: "mongoPort",
+          name: "port",
           type: "input",
           message: `What port should be used for ${dbTitle}?`,
           default: `27017`
         },
         {
-          name: "mongoHost",
+          name: "host",
           type: "input",
           message: `What hostname should be used for ${dbTitle}?`,
           default: `localhost`
         },
         {
-          name: "mongoUser",
+          name: "user",
           type: "input",
           message: `What user should be used for ${dbTitle}?`,
           default: `root`
         },
         {
-          name: "mongoPass",
+          name: "password",
           type: "password",
           message: `What password should be used for ${dbTitle}?`
+        },
+        {
+          name: "database",
+          type: "input",
+          message: `What database should be used for ${dbTitle}?`
         },
       ]
   }
