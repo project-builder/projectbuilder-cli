@@ -21,20 +21,19 @@ class CLI {
   focus: any;
   prompts: any;
   Menu: any;
-ChoiceRouter: any;
-Creator: any;
-databaseTypes: any;
-filesystemTypes: any;
-projectTitle: any;
-Edit: any;
-Setup: any;
-dbCreator: any;
+  ChoiceRouter: any;
+  Creator: any;
+  databaseTypes: any;
+  filesystemTypes: any;
+  projectTitle: any;
+  Edit: any;
+  Setup: any;
+  dbCreator: any;
 
   constructor() {
     clear();
     this.projectTitle = process.argv[2]
     this.init(this.projectTitle);
-    // databaseCreator.sayHi();
     this.chalk = chalk;
     this.figlet = figlet;
     this.clear = clear;
@@ -55,7 +54,7 @@ dbCreator: any;
 
   }
 
-    run = index.run;
+    static run = index.run;
     promptProjectName = index.promptProjectName;
     init = index.init;
     createFile = index.createFile;
@@ -64,7 +63,6 @@ dbCreator: any;
     showConfig = index.showConfig;
     promptNew = index.promptNew;
     writeConfig = index.writeConfig;
-    // Menu = prompts.Menu;
 
 }
 
