@@ -2,9 +2,9 @@ import * as shell from 'shelljs';
 
 import * as fs from 'fs-extra';
 
-import * as YAML from 'json2yaml'
+// import * as YAML from 'json2yaml'
+import * as YAML from 'yamljs'
 
-import * as json from 'json'
 
 const createFile = async function(){
 
@@ -25,7 +25,9 @@ let envFile =``
 
 
   try {
-    let indexFile =`
+
+let indexFile =
+`
 const YAML = require('yamljs');
 const {Manager} = require('@projectbuilder/projectbuilder-core');
 console.log('coming along')
@@ -37,7 +39,8 @@ myManager.initialize(7500);
 
 
 
-let gitIgnoreFile =`
+let gitIgnoreFile =
+`
 node_modules/
 .env
 `
@@ -63,9 +66,9 @@ let pkgJSON = {
 
 
 
-     let rootFile = await fs.ensureDir(`${process.cwd()}/${this.projectTitle}`);
-       await fs.outputFile(`${rootFile}/prjbconfig.yml`, YAML.stringify(this.globalConfig));
-      await fs.outputFile(`${rootFile}/index.js`, indexFile);
+    let rootFile = await fs.ensureDir(`${process.cwd()}/${this.projectTitle}`);
+    await fs.outputFile(`${rootFile}/prjbconfig.yml`, YAML.stringify(this.globalConfig));
+    await fs.outputFile(`${rootFile}/index.js`, indexFile);
     await fs.outputFile(`${rootFile}/.env`, envFile);
     await fs.outputFile(`${rootFile}/.gitignore`, gitIgnoreFile);
 

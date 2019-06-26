@@ -20,8 +20,11 @@
   },
   "homepage": "https://github.com/project-builder/projectbuilder-cli#readme",
   "dependencies": {
+    "@types/fs-extra": "^7.0.0",
     "@types/inquirer": "0.0.43",
     "@types/node": "^12.0.10",
+    "@types/shelljs": "^0.8.5",
+    "@types/yamljs": "^0.2.30",
     "chalk": "^2.4.1",
     "clear": "^0.1.0",
     "cli-progress": "^2.1.1",
@@ -34,7 +37,8 @@
     "json": "^9.0.6",
     "json2yaml": "^1.1.0",
     "keypress": "^0.2.1",
-    "shelljs": "^0.8.2"
+    "shelljs": "^0.8.2",
+    "yamljs": "^0.3.0"
   },
   "bin": {
     "projectBuilder": "lib/index.js"

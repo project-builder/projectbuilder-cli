@@ -1,5 +1,5 @@
 
-const sub = function(subject){
+const sub = function(subject: any){
    const subMenu = [
      {
        name: "menu",
@@ -10,12 +10,10 @@ const sub = function(subject){
          `Edit an existing ${subject}`,
          `Return to Main Menu`,
        ],
-       filter: (answer) => {
+       filter: (answer: any) => {
          switch (answer) {
            case `Setup a new ${subject}`: return `new`
-             break;
            case `Edit an existing ${subject}`: return `edit`
-             break;
            case `Return to Main Menu`: return `main`
            default:
          }

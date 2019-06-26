@@ -12,16 +12,12 @@ const main = function(){
          `Show config file`,
         `Create Project`
        ],
-       filter: (answer) => {
+       filter: (answer: any) => {
          switch (answer) {
            case `Set up models`: return `model`
-             break;
            case `Set up databases`: return `database`
-             break;
            case `Set up fileSystems`: return `filesystem`
-               // break;
            case `Show config file`: return `showConfig`
-            break;
            case `Create Project`: return `createProject`
            default:
 
