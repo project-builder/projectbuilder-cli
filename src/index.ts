@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 import CLI from './CLI'
-CLI.run()
+const myCLI = new CLI()
+myCLI.run()

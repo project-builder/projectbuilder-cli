@@ -8,6 +8,6 @@ export{
   // ChoiceRouter,
   // Creator,
   // Main,
-  Menu,
+  Menu
   // Setup
 }

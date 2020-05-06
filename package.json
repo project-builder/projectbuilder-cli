@@ -33,9 +33,6 @@
     "figlet": "^1.2.1",
     "fs-extra": "^7.0.1",
     "inquirer": "^6.2.0",
-    "js-yaml": "^3.13.1",
-    "json": "^9.0.6",
-    "json2yaml": "^1.1.0",
     "keypress": "^0.2.1",
     "shelljs": "^0.8.2",
     "yamljs": "^0.3.0"

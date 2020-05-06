@@ -6,7 +6,6 @@ import modelCreator from '../modelCreator'
 const run = async function(){
 
 let menuChoice = await this.showMenu(this.Menu.main());
-
   switch (menuChoice) {
     case'createProject': this.createFile();
     break;

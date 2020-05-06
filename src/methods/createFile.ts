@@ -1,8 +1,5 @@
 import * as shell from 'shelljs';
-
 import * as fs from 'fs-extra';
-
-// import * as YAML from 'json2yaml'
 import * as YAML from 'yamljs'
 
 
@@ -10,15 +7,13 @@ const createFile = async function(){
 
 let envFile =``
 
-    for (let key in this.globalConfig.databases) {
-        let name = key;
-        let password = this.globalConfig.databases[key].setup.password;
-        console.log(`${name}=${password}`)
-        let kv =`${name}=${password}`
-
-        envFile += kv;
-        envFile += '\n'
-    }
+  for (let key in this.globalConfig.databases) {
+      let name = key;
+      let password = this.globalConfig.databases[key].setup.password;
+      let kv =`${name}=${password}`
+      envFile += kv;
+      envFile += '\n'
+  }
 
 
 
@@ -35,8 +30,6 @@ const project = YAML.load('./prjbconfig.yml')
 const myManager = new Manager(project);
 myManager.initialize(7500);
 `
-
-
 
 
 let gitIgnoreFile =
@@ -62,10 +55,6 @@ let pkgJSON = {
 }
 
 
-
-
-
-
     let rootFile = await fs.ensureDir(`${process.cwd()}/${this.projectTitle}`);
     await fs.outputFile(`${rootFile}/prjbconfig.yml`, YAML.stringify(this.globalConfig));
     await fs.outputFile(`${rootFile}/index.js`, indexFile);
@@ -76,7 +65,7 @@ let pkgJSON = {
 
 
 
-      await shell.cd(this.projectTitle);
+    await shell.cd(this.projectTitle);
       // await shell.exec('npm init -y')
 
     await shell.exec(`npm i @projectbuilder/projectbuilder-core yamljs`)
