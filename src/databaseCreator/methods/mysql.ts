@@ -3,7 +3,7 @@
       {
         name: "port",
         type: "input",
-        message: `What port should be used for ${dbTitle} HOORAY?`,
+        message: `What port should be used for ${dbTitle}?`,
         default: `3306`
       },
       {
@@ -26,8 +26,7 @@
       {
         name: "database",
         type: "input",
-        message: `What database should be used for ${dbTitle}?`,
-        default: dbTitle
+        message: `What is the database name for ${dbTitle}?`,
       },
     ]
   }

@@ -11,6 +11,7 @@ let envFile =``
       let name = key;
       let password = this.globalConfig.databases[key].setup.password;
       let kv =`${name}=${password}`
+
       envFile += kv;
       envFile += '\n'
   }

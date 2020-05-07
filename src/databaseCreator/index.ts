@@ -16,7 +16,7 @@ class databaseCreator{
         {
           name: "name",
           type: "input",
-          message: `What is the name of this database?`
+          message: `Please give a human readable name for this database. (e.g. Testing, Producion, etc..)`
         },
         {
           name: "type",
